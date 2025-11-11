@@ -68,6 +68,6 @@ cat("Combined data dimensions:", nrow(combined_data), "rows,", ncol(combined_dat
 cat("Records without LTLAI:", sum(is.na(combined_data$LTLAI)), "\n")
 
 # Save the combined dataset
-write_csv(combined_data, "/results/combined_LAI_wood_removal_with_LTLAI.csv")
+write_csv(combined_data, "/mnt/gsdata/users/lotz/LittervsLens/results/LAI_results_wood_removal_full.csv")
 
 cat("Combined dataset saved!\n")
