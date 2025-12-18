@@ -1,3 +1,5 @@
+# F04 Code: VZA Analysis with Clumping Comparison and Woody Component Removal
+
 library(ggplot2)
 library(dplyr)
 library(gridExtra)

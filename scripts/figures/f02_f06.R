@@ -1,3 +1,5 @@
+# F02 and F06 Code: LAI over time with segmented regression and hemispherical photos timeline
+
 library(ggplot2)
 library(dplyr)
 library(segmented)

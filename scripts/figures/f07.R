@@ -1,3 +1,5 @@
+# F07 Code: LT vs DHP LAI Comparison with GLMM Analysis
+
 library(ggplot2)
 library(dplyr)
 library(patchwork)

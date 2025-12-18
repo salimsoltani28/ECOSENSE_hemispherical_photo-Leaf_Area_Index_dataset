@@ -1,5 +1,5 @@
 # ============================================================
-#   CANOPY STRUCTURE ANALYSIS — CORRECTED FOR hemispheR G(theta)
+#   F05: CANOPY STRUCTURE ANALYSIS — CORRECTED FOR hemispheR G(theta)
 # ============================================================
 
 # Set working directory
