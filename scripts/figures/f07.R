@@ -7,7 +7,7 @@ library(MuMIn)
 # Set working directory
 setwd("/mnt/gsdata/users/lotz/LittervsLens/")
 
-merged_data_cumulative <- read.csv("results/combined_LAI_wood_removal_with_LTLAI.csv", header = TRUE)
+merged_data_cumulative <- read.csv("/mnt/gsdata/users/lotz/LittervsLens/results/LAI_results_wood_removal_full.csv", header = TRUE)
 
 # Define plot IDs without conifer influence
 plot_ids_wo_conifer <- c('LT11', 'LT13', 'LT14', 'LT23', 'LT24', 'LT33', 'LT34', 'LT41', 'LT44', 'LT51', 'LT52', 'LT53', 'LT62', 'LT61', 'LT63')
@@ -37,7 +37,7 @@ plot_data <- merged_data_cumulative %>%
   filter(phase != "other")  # Remove "other" phase for GLMM
 
 # Define custom phase colors
-custom_colors <- c("onset" = "#31688E", "peak" = "#35B779", "end" = "#FDE725")
+custom_colors <- c("onset" = "#31688E", "peak" = "#35B779", "end" = "#C6801A")
 
 # ===== FIT GLMM MODEL =====
 # Fit the GLMM: LT LAI ~ LAI_LXG1_nowood * phase + (1|ID)

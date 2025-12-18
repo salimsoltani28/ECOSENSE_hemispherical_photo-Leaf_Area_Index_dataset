@@ -1,3 +1,4 @@
+#This script performs woody component removal from PAI results to finally achieve a LAI result without woody components and combines them with LT results
 library(dplyr)
 library(readr)
 

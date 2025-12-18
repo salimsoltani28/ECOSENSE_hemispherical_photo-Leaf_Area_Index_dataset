@@ -1,9 +1,13 @@
+#This script contains functions to process images of Litter Trap content for leaf area calculation.
+
 # dependencies
 import cv2
 import numpy as np
 import os
 import csv
 from scipy.interpolate import griddata
+
+### FUNCTIONS ###
 
 # Function to warp image with ArUco markers
 def warp_image(image, width_mm, height_mm, file_in):
@@ -22,7 +26,6 @@ def warp_image(image, width_mm, height_mm, file_in):
     --------
         numpy array: The warped image with the specified size, or None if not enough markers are detected.
     """
-    # Load ArUco markers dictionary
     aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
     parameters = cv2.aruco.DetectorParameters()
     detector = cv2.aruco.ArucoDetector(aruco_dict, parameters)
@@ -82,7 +85,7 @@ def warp_image(image, width_mm, height_mm, file_in):
         # Map marker IDs to corners
         corner_map = {0: "top-left", 1: "top-right", 2: "bottom-right", 3: "bottom-left"}
         
-        # Print details about missing markers
+        # Print details when markers are missing
         if missing_ids:
             print(f"Missing markers for image '{file_in}':")
             for marker in missing_ids:
@@ -94,7 +97,7 @@ def warp_image(image, width_mm, height_mm, file_in):
         return None
 
 
-# function to perform spatially variable image exposure correction
+# Variable image exposure correction function
 def correct_image_exposure(image,
                            width_mm=980,
                            height_mm=1980,
@@ -146,21 +149,19 @@ def correct_image_exposure(image,
     # Convert physical dimensions from mm to pixels
     image_height, image_width = image.shape[:2]
     
-    # Ratio of mm to pixel dimensions
     width_ratio = image_width / width_mm
     height_ratio = image_height / height_mm
-    
-    # Convert the image to grayscale
+
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    # Convert the size of the 1cm square into pixels
+    # Convert mm into pixels for square size
     square_size_px = int(square_size_mm * width_ratio)
     
     # List of reference points (position and gray level difference from white)
     points = []
     values = []
 
-    # Process the square_positions_fix (as before)
+    # Process the square_positions
     for (x_mm, y_mm) in square_positions_fix:
         # Convert the center positions from mm to pixel coordinates
         x_px = int(x_mm * width_ratio)
@@ -191,7 +192,6 @@ def correct_image_exposure(image,
         best_point = None
 
         for (x_mm, y_mm) in group:
-            # Convert the center positions from mm to pixel coordinates
             x_px = int(x_mm * width_ratio)
             y_px = int(y_mm * height_ratio)
             
@@ -204,7 +204,6 @@ def correct_image_exposure(image,
             # Extract the area of the square
             square = gray_image[y_start:y_end, x_start:x_end]
             
-            # Calculate the average gray value of the square
             avg_gray_value = np.mean(square)
             
             # Keep track of the brightest square in the group
@@ -213,10 +212,8 @@ def correct_image_exposure(image,
                 best_point = (x_px, y_px)
         
         if best_point:
-            # Difference to white (255 is the ideal white value)
             correction_value = 255 - brightest_avg_value
             
-            # Add the brightest point in the group as a reference point
             points.append([best_point[0], best_point[1]])
             values.append(correction_value)
 
@@ -255,6 +252,8 @@ def correct_image_exposure(image,
         
     return corrected_image
 
+
+# Function to draw white corners on the image so that they are not detected as leaves
 def draw_white_corners(image, corner_square_length_mm, width_image_mm, height_image_mm, frame_width_mm=5):
     """
     Draws white squares in the four corners of an image based on the specified dimensions 
@@ -272,7 +271,6 @@ def draw_white_corners(image, corner_square_length_mm, width_image_mm, height_im
     --------
         numpy array: The image with white squares in the corners.
     """
-    # Image dimensions in pixels
     height_pixels, width_pixels = image.shape[:2]
     
     # Convert square length from millimeters to pixels
@@ -296,6 +294,7 @@ def draw_white_corners(image, corner_square_length_mm, width_image_mm, height_im
 
     return image
 
+# Function to mask image based on threshold
 def mask_image(image, mask):
     """
     Masks the input image based on the threshold value applied to the grayscale version.
@@ -323,7 +322,7 @@ def mask_image(image, mask):
     
     return masked_image
 
-
+#Function to calculate leaf area in images from a folder
 def calculate_leaf_area_in_images(folder_path, total_area_mm2, output_csv):
     """
     This function calculates the leaf area in cm² for all mask images in the specified folder.
@@ -348,28 +347,21 @@ def calculate_leaf_area_in_images(folder_path, total_area_mm2, output_csv):
     # Get all image files in the folder that match the mask naming convention
     image_files = [f for f in os.listdir(folder_path) if f.endswith(('_mask.png', '_mask.jpg', '_mask.jpeg', '_mask.PNG', '_mask.JPG', '_mask.JPEG'))]
     
-    # Open the CSV file for writing the results
     with open(output_csv, mode='w', newline='') as file:
         writer = csv.writer(file)
-        # Write the header row to the CSV file
         writer.writerow(['Plot', 'Date', 'Leaf Area (cm²)'])
         
         print(image_files)  # prints the list of image files for debugging
 
-        # Process each image file
         for image_file in image_files:
-            # Extract plot and date from the filename
             file_parts = image_file.split('_')
             plot = file_parts[0]  # LT plus plot number
             date = file_parts[1][:6]  # YYMMDD
 
-            # Build the full path for the current image file
             image_path = os.path.join(folder_path, image_file)
             
-            # Read the image from disk
             image = cv2.imread(image_path)
             
-            # Convert the image to grayscale for easier processing
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             
             # Count the number of black pixels (assuming leaf area is represented by black pixels with value 255)
@@ -383,8 +375,6 @@ def calculate_leaf_area_in_images(folder_path, total_area_mm2, output_csv):
             
             # Write the plot, date, and calculated leaf area to the CSV file
             writer.writerow([plot, date, f"{leaf_area_cm2:.2f}"])
-
-
 
 
 ###-----------------------------------------------------------------------------------------------------###
@@ -447,52 +437,38 @@ threshold_gray = 240
 
 
 ### END OF USER INPUT
-###-----------------------------------------------------------------------------------------------------###
+###--------------------------------------------------------------------###
 
-
-
+###Apply on all images in folder
 # Execute for all images in folder and subfolders
 for root, _, files in os.walk(path_dir_in):  # root gives the current directory path, _ ignores subdirectories, and files is the list of files
     for file_in in files:
         if file_in.split('.')[-1] in ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']:
             print(file_in)
-
-            # Construct the full path to the image file
             full_path_in = os.path.join(root, file_in)
-
-            # Read the image
             image = cv2.imread(full_path_in)
-
-            # Warp the image
             image_processed = warp_image(image, width_mm, height_mm, file_in)
-
             # Whiten ArUco markers in the original image
             image_processed = draw_white_corners(image_processed,
                                                  corner_square_length_mm=corner_square_length_mm,
                                                  width_image_mm=width_mm,
                                                  height_image_mm=height_mm,
                                                  frame_width_mm=frame_width_mm-1) # Avoid overlaps in whitening and future exposure correction squares
-
             # Correct image exposure
             image_gray = correct_image_exposure(image_processed, width_mm, height_mm, square_size_mm, square_positions_fix, square_positions_groups_brightest)
 
-            # Write the grayscale image
             file_out_name, file_out_ext = os.path.splitext(file_in)  # os.path.splitext handles file extensions more robustly
             output_gray_path = os.path.join(path_dir_out, f"{file_out_name}_gray{file_out_ext}")
             cv2.imwrite(output_gray_path, image_gray)
 
             # Create a binary mask where pixels in image_gray greater than the threshold are set to 1 (True)
             mask = image_gray > threshold_gray
-
-            # Write the mask
             image_mask = np.where(mask, 255, 0).astype(np.uint8)
             output_mask_path = os.path.join(path_dir_out, f"{file_out_name}_mask{file_out_ext}")
             cv2.imwrite(output_mask_path, image_mask)
 
             # Mask the background
             image_processed = mask_image(image_processed, mask)
-
-            # Write the processed image
             output_processed_path = os.path.join(path_dir_out, f"{file_out_name}_processed{file_out_ext}")
             cv2.imwrite(output_processed_path, image_processed)
 

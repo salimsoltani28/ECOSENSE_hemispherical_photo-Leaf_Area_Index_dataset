@@ -1,3 +1,5 @@
+#This Script contains helper functions to process fisheye images for LAI analysis using hemispheR package
+
 # Set working directory
 setwd("/mnt/gsdata/users/lotz/LittervsLens/")
 
@@ -15,7 +17,7 @@ for (pkg in required_packages) {
 }
 
 # Function to crop all images from input_dir into output_dir
-##### This is done so we only analyze the image itself and set the Zenith angles right. Before the images ahd somne small black borders at the top and bottom
+##### This is done so we only analyze the image itself and set the Zenith angles right. Before the images had some small black borders at the top and bottom
 # Parallel version of crop_images function
 crop_images <- function(input_dir, cropped_dir, num_cores = 10) {
   if (!require("imager")) install.packages("imager")
@@ -32,7 +34,7 @@ crop_images <- function(input_dir, cropped_dir, num_cores = 10) {
   mclapply(image_files, function(image_path) {
     tryCatch({
       image <- load.image(image_path)
-      cropped_image <- crop.borders(image, ny = c(220, 280))
+      cropped_image <- crop.borders(image, ny = c(220, 280)) # set this to the size of the border to crop
       
       relative_path <- sub(input_dir, "", image_path)
       output_path <- file.path(cropped_dir, dirname(relative_path))
@@ -58,7 +60,7 @@ extract_plot <- function(filename) {
   str_remove(filename, "_\\d{8}.*")  # remove the date and extension
 }
 
-# Function to preview canopy parameters from a sample image
+# Function to preview canopy parameters from a sample image this helps for debugging and understanding the output structure of canopy_fisheye
 preview_canopy_params <- function(sample_image_path) {
   cat("Analyzing sample image to understand canopy_fisheye output structure...\n")
   
@@ -87,17 +89,6 @@ preview_canopy_params <- function(sample_image_path) {
                               message = FALSE)
   
   canopy <- canopy_fisheye(gap.frac)
-# # Debug: Check the structure of gap.frac
-#   cat("Class:", class(gap.frac), "\n")
-#   cat("Length:", length(gap.frac), "\n")
-#   if (is.list(gap.frac)) {
-#     cat("List names:", paste(names(gap.frac), collapse = ", "), "\n")
-#     str(gap.frac)
-#   } else if (is.vector(gap.frac)) {
-#     cat("Vector values:", paste(gap.frac[1:min(5, length(gap.frac))], collapse = ", "), "\n")
-#   } else {
-#     str(gap.frac)
-#   }
   cat("---\n")
   cat("Canopy parameters available:\n")
   if (is.list(canopy)) {
@@ -111,6 +102,8 @@ preview_canopy_params <- function(sample_image_path) {
   
   return(canopy)
 }
+# From the list you can check which parameters you want to extract and include in the final CSV
+
 
 # Simplified function that processes image and writes directly to CSV
 process_image_multi_vza <- function(image_path, csv_path) {

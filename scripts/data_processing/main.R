@@ -1,3 +1,5 @@
+#This is the script where we import the functions for image processing and apply it on our hemispherical images. Furthermore we import the resuts from the leaf area python script and combine both results into one csv file
+
 library(dplyr)
 library(parallel)
 
@@ -5,15 +7,16 @@ library(parallel)
 setwd("/mnt/gsdata/users/lotz/LittervsLens/")
 
 # Set number of cores to use
-num_cores <- 4  # 👈 Change the number of cores according to your system
+num_cores <- 4  # Change this based on your system capabilities
 
-source("scripts/data_processing/functions.R")
+source("scripts/data_processing/functions.R") # Load helper functions
 
 # Define paths - UPDATE THESE TO YOUR ACTUAL PATHS
 input_folder <- "data/all/"
 cropped_folder <- "data/hemi_photo_cropped/" 
 csv_path <- "results/LAI_results.csv"
 
+# Uncomment the following block to preview canopy parameters from a sample image
 # # Step 1: Preview canopy parameters (run once to understand output structure)
 # sample_images <- list.files(input_folder, pattern = "\\.(jpg|JPG)$", full.names = TRUE, recursive = TRUE)
 # if (length(sample_images) > 0) {
@@ -21,7 +24,7 @@ csv_path <- "results/LAI_results.csv"
 #   sample_canopy <- preview_canopy_params(sample_images[1])
 # }
 
-Step 2: Crop images (if needed) - now with parallel processing
+#Step 2: Crop images (if needed) - now with parallel processing
 cat("\n=== CROPPING IMAGES ===\n")
 crop_images(input_folder, cropped_folder, num_cores)
 
