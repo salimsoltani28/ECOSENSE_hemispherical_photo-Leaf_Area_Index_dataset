@@ -1,6 +1,6 @@
-# 📊 LittervsLens: Evaluating LAI from Litter Traps and Hemispherical Photos Across View Zenith Angles and Leaf Fall Phases
+# LittervsLens: Evaluating LAI from Litter Traps and Hemispherical Photos Across View Zenith Angles and Leaf Fall Phases
 
-## 🌟 Overview
+## Overview
 Leaf Area Index (LAI) is a crucial parameter for modeling ecosystem productivity, climate interactions, and hydrological processes. This project compares **Digital Hemispherical Photography (DHP)-derived LAI** with **Litter Trap (LT)-derived LAI** in temperate deciduous forests to evaluate accuracy and spatial footprint alignment. We assess the best-matching **View Zenith Angle (VZA)** and apply the **LXG clumping index** to improve estimation accuracy. Our study finds that **DHP is effective** in estimating LAI for broadleaf forests but faces limitations during leaf fall, leading to overestimation.
 
 ## 📂 Repository Structure
@@ -28,7 +28,7 @@ LittervsLens/
 │── README.md          # Project documentation
 ```
 
-## 🚀 Installation & Dependencies
+## Installation & Dependencies
 ### **Prerequisites**
 Ensure you have R (≥ 4.0) and Python installed along with necessary packages.
 
@@ -42,7 +42,7 @@ install.packages(c("tidyverse", "ggplot2", "dplyr", "lme4", "hemispheR", "MuMIn"
 pip install numpy cv2 os csv scipy
 ```
 
-## 📊 Usage
+## Usage
 Run the scripts in the following order to reproduce the results:
 ```sh
 # Run Python scripts
@@ -54,7 +54,7 @@ Rscript scripts/Data_manipulation_plotting.qmd # DHP data manipulation and plott
 ```
 Outputs will be saved in the **results/** directory.
 
-## 📈 Results & Figures
+## Results & Figures
 Example visualization:
 ![Sample Plot](results/fig02.png)
 
