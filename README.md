@@ -6,9 +6,7 @@ This repository adapts code and ideas from the workflow presented in:
 
 Lotz, S., Kattenborn, T., Frey, J., Soltani, S., Göritz, A., Jaksztat, T., and Katal, N. (2026). *Litter vs. Lens: Evaluating LAI from Litter Traps and Hemispherical Photos Across View Zenith Angles and Leaf Fall Phases*. Biogeosciences, 23, 1949–1963. https://doi.org/10.5194/bg-23-1949-2026
 
-Related publication: https://doi.org/10.5194/bg-23-1949-2026
-
-Related repository: [Repository name](https://github.com/USER/REPO)
+Related repository: [LittervsLens](https://github.com/GeoSense-Freiburg/LittervsLens)
 
 The present release adapts the workflow for deriving LAI from hemispherical photographs collected at the ECOSENSE forest research site.
 
