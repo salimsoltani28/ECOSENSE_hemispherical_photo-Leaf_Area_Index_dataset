@@ -8,7 +8,6 @@ Lotz, S., Kattenborn, T., Frey, J., Soltani, S., Göritz, A., Jaksztat, T., and 
 
 Related repository: [LittervsLens](https://github.com/GeoSense-Freiburg/LittervsLens)
 
-The present release adapts the workflow for deriving LAI from hemispherical photographs collected at the ECOSENSE forest research site.
 
 ## Overview
 Leaf Area Index (LAI) is a crucial parameter for modeling ecosystem productivity, climate interactions, and hydrological processes. This project compares **Digital Hemispherical Photography (DHP)-derived LAI** with **Litter Trap (LT)-derived LAI** in temperate deciduous forests to evaluate accuracy and spatial footprint alignment. We assess the best-matching **View Zenith Angle (VZA)** and apply the **LXG clumping index** to improve estimation accuracy. Our study finds that **DHP is effective** in estimating LAI for broadleaf forests but faces limitations during leaf fall, leading to overestimation. Please refer to the original publication for more information: DOI: https://doi.org/10.5194/bg-23-1949-2026. 
