@@ -1,4 +1,4 @@
-# LAI-from-Hemispherical-Photos
+# ECOSENSE hemispherical photo & Leaf Area Index dataset
 
 ## Acknowledgements
 
