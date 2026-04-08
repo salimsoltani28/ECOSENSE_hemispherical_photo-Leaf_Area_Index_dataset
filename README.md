@@ -1,7 +1,19 @@
 # LAI-from-Hemispherical-Photos
 
+## Acknowledgements
+
+This repository adapts code and ideas from the workflow presented in:
+
+Lotz, S., Kattenborn, T., Frey, J., Soltani, S., Göritz, A., Jaksztat, T., and Katal, N. (2026). *Litter vs. Lens: Evaluating LAI from Litter Traps and Hemispherical Photos Across View Zenith Angles and Leaf Fall Phases*. Biogeosciences, 23, 1949–1963. https://doi.org/10.5194/bg-23-1949-2026
+
+Related publication: https://doi.org/10.5194/bg-23-1949-2026
+
+Related repository: [Repository name](https://github.com/USER/REPO)
+
+The present release adapts the workflow for deriving LAI from hemispherical photographs collected at the ECOSENSE forest research site.
+
 ## Overview
-Leaf Area Index (LAI) is a crucial parameter for modeling ecosystem productivity, climate interactions, and hydrological processes. This project compares **Digital Hemispherical Photography (DHP)-derived LAI** with **Litter Trap (LT)-derived LAI** in temperate deciduous forests to evaluate accuracy and spatial footprint alignment. We assess the best-matching **View Zenith Angle (VZA)** and apply the **LXG clumping index** to improve estimation accuracy. Our study finds that **DHP is effective** in estimating LAI for broadleaf forests but faces limitations during leaf fall, leading to overestimation.
+Leaf Area Index (LAI) is a crucial parameter for modeling ecosystem productivity, climate interactions, and hydrological processes. This project compares **Digital Hemispherical Photography (DHP)-derived LAI** with **Litter Trap (LT)-derived LAI** in temperate deciduous forests to evaluate accuracy and spatial footprint alignment. We assess the best-matching **View Zenith Angle (VZA)** and apply the **LXG clumping index** to improve estimation accuracy. Our study finds that **DHP is effective** in estimating LAI for broadleaf forests but faces limitations during leaf fall, leading to overestimation. Please refer to the original publication for more information: DOI: https://doi.org/10.5194/bg-23-1949-2026. 
 
 ## 📂 Repository Structure
 ```bash
