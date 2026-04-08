@@ -1,4 +1,4 @@
-# LittervsLens: Evaluating LAI from Litter Traps and Hemispherical Photos Across View Zenith Angles and Leaf Fall Phases
+# LAI-from-Hemispherical-Photos
 
 ## Overview
 Leaf Area Index (LAI) is a crucial parameter for modeling ecosystem productivity, climate interactions, and hydrological processes. This project compares **Digital Hemispherical Photography (DHP)-derived LAI** with **Litter Trap (LT)-derived LAI** in temperate deciduous forests to evaluate accuracy and spatial footprint alignment. We assess the best-matching **View Zenith Angle (VZA)** and apply the **LXG clumping index** to improve estimation accuracy. Our study finds that **DHP is effective** in estimating LAI for broadleaf forests but faces limitations during leaf fall, leading to overestimation.
